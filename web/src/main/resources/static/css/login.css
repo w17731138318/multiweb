@@ -1,0 +1,30 @@
+#canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-color: #1a9fff;
+    height: 100%;
+    width: 100%;
+}
+.login-box-body{
+    border:1px solid skyblue;
+    border-radius:10px;
+}
+.login_footer {
+    position: absolute;
+    bottom: -67px;
+    width: 820px;
+    left: 50%;
+    margin-left: -410px;
+    text-align: center;
+}
+.alertError{
+    padding: 10px;
+}
+.row-login{
+    padding-top: 10px;
+}
+.checkbox-login{
+    margin-bottom:0;
+}
