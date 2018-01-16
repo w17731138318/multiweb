@@ -1,6 +1,6 @@
 package com.pasq.common.validator;
 
-import com.pasq.common.exception.RRException;
+import com.pasq.common.exception.ResultsException;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -9,17 +9,17 @@ import org.apache.commons.lang.StringUtils;
  * @email wangweixin@pasq.com
  * @date 2017年11月29日
  */
-public abstract class Assert {
+public abstract class AbstractAssert {
 
     public static void isBlank(String str, String message) {
         if (StringUtils.isBlank(str)) {
-            throw new RRException(message);
+            throw new ResultsException(message);
         }
     }
 
     public static void isNull(Object object, String message) {
         if (object == null) {
-            throw new RRException(message);
+            throw new ResultsException(message);
         }
     }
 }

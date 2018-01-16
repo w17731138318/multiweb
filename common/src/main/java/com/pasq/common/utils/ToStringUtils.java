@@ -12,6 +12,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @create 2017-12-01 11:24
  **/
 public class ToStringUtils {
+	/**
+	 * COUNT_MATCHES
+	 */
+	private static final int COUNT_MATCHES=2;
+
+
 	public static final ToStringStyle THE_STYLE = new SimpleMultiLineToStringStyle();
 
 	/**
@@ -36,7 +42,7 @@ public class ToStringUtils {
 		}
 
 		//如果没有非空的属性，就输出 <all null properties>
-		if (StringUtils.countMatches(result, SimpleMultiLineToStringStyle.LINE_SEPARATOR) == 2) {
+		if (StringUtils.countMatches(result, SimpleMultiLineToStringStyle.LINE_SEPARATOR) == COUNT_MATCHES) {
 			return result.toString().split(SimpleMultiLineToStringStyle.LINE_SEPARATOR)[0]
 					+ "<all null values>]";
 		}

@@ -11,6 +11,12 @@ import static com.google.common.base.Preconditions.checkArgument;
  * @see
  **/
 public class BitUtils {
+	/**
+	 * 统计指定位置连续1的个数 31
+	 */
+	private static final int HIGH_BIT=31;
+
+
 
 	/**
 	 * 判断指定位置的比特位是否为1
@@ -77,7 +83,7 @@ public class BitUtils {
 		count = 1;
 
 		// 往高位遍历
-		for (int left = pos + 1; left <= 31; left++) {
+		for (int left = pos + 1; left <= HIGH_BIT; left++) {
 			if (!isOne(value, left)) {
 				break;
 			}

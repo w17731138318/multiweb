@@ -21,10 +21,14 @@ import java.util.Map;
  * @date 2017年11月29日
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
-    //没被包装过的HttpServletRequest（特殊场景，需要自己过滤）
+    /**
+     * 没被包装过的HttpServletRequest（特殊场景，需要自己过滤）
+     */
     HttpServletRequest orgRequest;
-    //html过滤
-    private final static HTMLFilter htmlFilter = new HTMLFilter();
+    /**
+     * html过滤
+     */
+    private final static HtmlFilter HTML_FILTER = new HtmlFilter();
 
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
@@ -33,18 +37,24 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        //非json类型，直接返回
+        /**
+         * 非json类型，直接返回
+         */
         if(!MediaType.APPLICATION_JSON_VALUE.equalsIgnoreCase(super.getHeader(HttpHeaders.CONTENT_TYPE))){
             return super.getInputStream();
         }
 
-        //为空，直接返回
+        /**
+         * 为空，直接返回
+         */
         String json = IOUtils.toString(super.getInputStream(), "utf-8");
         if (StringUtils.isBlank(json)) {
             return super.getInputStream();
         }
 
-        //xss过滤
+        /**
+         * xss过滤
+         */
         json = xssEncode(json);
         final ByteArrayInputStream bis = new ByteArrayInputStream(json.getBytes("utf-8"));
         return new ServletInputStream() {
@@ -116,7 +126,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     }
 
     private String xssEncode(String input) {
-        return htmlFilter.filter(input);
+        return HTML_FILTER.filter(input);
     }
 
     /**

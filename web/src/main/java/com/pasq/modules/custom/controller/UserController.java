@@ -1,5 +1,6 @@
 package com.pasq.modules.custom.controller;
 
+import com.pasq.common.utils.Results;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import com.pasq.modules.custom.entity.UserEntity;
 import com.pasq.modules.custom.service.UserService;
 import com.pasq.common.utils.PageUtils;
 import com.pasq.common.utils.Query;
-import com.pasq.common.utils.R;
 
 
 /**
@@ -30,7 +30,7 @@ public class UserController {
 	 * 列表
 	 */
 	@GetMapping("/list")
-	public R list(@RequestParam Map<String, Object> params) {
+	public Results list(@RequestParam Map<String, Object> params) {
 		//查询列表数据
 		Query query = new Query(params);
 
@@ -39,7 +39,7 @@ public class UserController {
 
 		PageUtils pageUtil = new PageUtils(userList, total, query.getLimit(), query.getPage());
 
-		return R.ok().put("page", pageUtil);
+		return Results.ok().put("page", pageUtil);
 	}
 
 
@@ -47,57 +47,57 @@ public class UserController {
 	 * 信息
 	 */
 	@GetMapping("/info/{id}")
-	public R info(@PathVariable("id") Long id) {
+	public Results info(@PathVariable("id") Long id) {
 		UserEntity user = userService.queryObject(id);
-
-		return R.ok().put("user", user);
+		UserEntity userEntity = new UserEntity();
+		return Results.ok().put("user", user);
 	}
 	/**
 	 * 信息
 	 */
 	@GetMapping("/infoByTwo/{id}")
-	public R infoByTwo(@PathVariable("id") Long id) {
+	public Results infoByTwo(@PathVariable("id") Long id) {
 		UserEntity user = userService.queryObjectByTWO(id);
 
-		return R.ok().put("user", user);
+		return Results.ok().put("user", user);
 	}
 	/**
 	 * 保存
 	 */
 	@PostMapping("/save")
-	public R save(@RequestBody UserEntity user) {
+	public Results save(@RequestBody UserEntity user) {
 		userService.save(user);
 
-		return R.ok();
+		return Results.ok();
 	}
 
 	/**
 	 * 编辑
 	 */
 	@PostMapping("/update")
-	public R update(@RequestBody UserEntity user) {
+	public Results update(@RequestBody UserEntity user) {
 		userService.update(user);
 
-		return R.ok();
+		return Results.ok();
 	}
 	/**
 	 * 删除
 	 */
 	@DeleteMapping("/delete/{id}")
-	public R delete(@PathVariable("id") Long id) {
+	public Results delete(@PathVariable("id") Long id) {
 		userService.delete(id);
 
-		return R.ok();
+		return Results.ok();
 	}
 
 	/**
 	 * 批量删除
 	 */
 	@DeleteMapping("/deleteBatch")
-	public R deleteBatch(@RequestBody Long[] ids) {
+	public Results deleteBatch(@RequestBody Long[] ids) {
 		userService.deleteBatch(ids);
 
-		return R.ok();
+		return Results.ok();
 	}
 
 }

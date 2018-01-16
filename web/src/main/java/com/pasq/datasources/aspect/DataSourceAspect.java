@@ -1,6 +1,6 @@
 package com.pasq.datasources.aspect;
 
-import com.pasq.datasources.DataSourceDB;
+import com.pasq.datasources.DataSourceName;
 import com.pasq.datasources.DynamicDataSource;
 import com.pasq.datasources.annotation.DataSource;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -38,8 +38,8 @@ public class DataSourceAspect implements Ordered {
 
         DataSource ds = method.getAnnotation(DataSource.class);
         if(ds == null){
-            DynamicDataSource.setDataSource(DataSourceDB.ONE);
-            logger.debug("set datasource is " + DataSourceDB.ONE);
+            DynamicDataSource.setDataSource(DataSourceName.ONE);
+            logger.debug("set datasource is " + DataSourceName.ONE);
         }else {
             DynamicDataSource.setDataSource(ds.name());
             logger.debug("set datasource is " + ds.name());

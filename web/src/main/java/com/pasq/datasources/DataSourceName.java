@@ -7,7 +7,7 @@ package com.pasq.datasources;
  * @email wangweixin@pasq.com
  * @date 2017年11月29日
  */
-public interface DataSourceDB {
+public interface DataSourceName {
     String ONE = "one";
     String TWO = "two";
     String THREE = "three";

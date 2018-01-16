@@ -1,6 +1,6 @@
 package com.pasq.common.aspect;//package com.pasq.common.aspect;
 //
-//import com.pasq.common.exception.RRException;
+//import com.pasq.common.exception.ResultsException;
 //import org.aspectj.lang.ProceedingJoinPoint;
 //import org.aspectj.lang.annotation.Around;
 //import org.aspectj.lang.annotation.Aspect;
@@ -32,7 +32,7 @@ package com.pasq.common.aspect;//package com.pasq.common.aspect;
 //                result = point.proceed();
 //            }catch (Exception e){
 //                logger.error("redis error", e);
-//                throw new RRException("Redis服务异常");
+//                throw new ResultsException("Redis服务异常");
 //            }
 //        }
 //        return result;

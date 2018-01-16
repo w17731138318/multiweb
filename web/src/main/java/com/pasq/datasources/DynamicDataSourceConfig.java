@@ -18,7 +18,12 @@ import java.util.Map;
  */
 @Configuration
 public class DynamicDataSourceConfig {
-
+    /**
+     * 初始化集合时尽力设置集合大小
+     */
+    private final int INITIAL_CAPACITY=10;
+    
+    
     @Bean
     @ConfigurationProperties("spring.datasource.druid.one")
     public DataSource oneDataSource(){
@@ -34,9 +39,9 @@ public class DynamicDataSourceConfig {
     @Bean
     @Primary
     public DynamicDataSource dataSource(DataSource oneDataSource, DataSource twoDataSource) {
-        Map<String, DataSource> targetDataSources = new HashMap<>();
-        targetDataSources.put(DataSourceDB.ONE, oneDataSource);
-        targetDataSources.put(DataSourceDB.TWO, twoDataSource);
+        Map<String, DataSource> targetDataSources = new HashMap<>(INITIAL_CAPACITY);
+        targetDataSources.put(DataSourceName.ONE, oneDataSource);
+        targetDataSources.put(DataSourceName.TWO, twoDataSource);
         return new DynamicDataSource(oneDataSource, targetDataSources);
     }
 }

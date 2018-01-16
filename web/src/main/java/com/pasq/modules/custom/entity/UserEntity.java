@@ -1,7 +1,7 @@
 package com.pasq.modules.custom.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+
 import com.pasq.common.utils.ToStringUtils;
 
 
@@ -15,20 +15,24 @@ import com.pasq.common.utils.ToStringUtils;
  */
 public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	//
+
+	/**
+	 * ID
+	 */
 	private Long id;
-	//
+	/**
+	 * name
+	 */
 	private String name;
-	/*
+	/**
      * 私有构造器
      */
     public UserEntity() {
 	}
 
-	/*
-    * 构建新实例
-    */
+	/**
+     * 构建新实例
+     */
 	public static UserEntity newInstance() {
 		return new UserEntity();
 	}

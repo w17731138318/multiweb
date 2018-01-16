@@ -1,6 +1,6 @@
 package com.pasq.common.xss;
 
-import com.pasq.common.exception.RRException;
+import com.pasq.common.exception.ResultsException;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
  * @email wangweixin@pasq.com
  * @date 2017年11月29日
  */
-public class SQLFilter {
+public class SqlFilter {
 
     /**
      * SQL注入过滤
@@ -34,7 +34,7 @@ public class SQLFilter {
         //判断是否包含非法字符
         for(String keyword : keywords){
             if(str.indexOf(keyword) != -1){
-                throw new RRException("包含非法字符");
+                throw new ResultsException("包含非法字符");
             }
         }
 
