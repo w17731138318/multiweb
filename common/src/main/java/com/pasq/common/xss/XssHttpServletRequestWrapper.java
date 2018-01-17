@@ -19,6 +19,8 @@ import java.util.Map;
  * @author wwx
  * @email wangweixin@pasq.com
  * @date 2017年11月29日
+ * {@link HttpServletRequestWrapper}
+ * HttpServletRequestWrapper、HttpServletResponseWrapper、HttpSessionWrapper
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     /**
