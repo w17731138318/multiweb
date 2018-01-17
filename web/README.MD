@@ -77,3 +77,48 @@
       super.addInterceptors(registry); 
     }
   }``
+  
+##自定义注解创建 和 使用
+在spring boot项目中创建注解，然后通过切面来实现注解,非常简单:
+
+1. 创建注解
+``@Documented
+  @Retention(RUNTIME)
+  @Target(METHOD)
+  public @interface MyLog {
+      String value() default "日志注解";
+  }``
+  
+2. 通过切面来实现注解
+``@Component
+     @Aspect
+     public class LogAspect {
+         @Pointcut("@annotation(xx.xx.xx.MyLog)")
+         private void cut() { }
+         /**
+          * 定制一个环绕通知
+          * @param joinPoint
+          */
+         @Around("cut()")
+         public void advice(ProceedingJoinPoint joinPoint){
+             System.out.println("环绕通知之开始");
+             try {
+                 joinPoint.proceed();
+             } catch (Throwable e) {
+                 e.printStackTrace();
+             }
+             System.out.println("环绕通知之结束");
+         }
+         //当想获得注解里面的属性，可以直接注入改注解
+         @Before("cut()&&@annotation(myLog)")
+            public void record(JoinPoint joinPoint, MyLog myLog) {
+            System.out.println(myLog.value());
+         }
+         @After("recordLog()")
+         public void after() {
+             this.printLog("已经记录下操作日志@After 方法执行后");
+         }
+     }``
+     
+3. 因为Aspect作用在bean上，所以先用Component把这个类添加到容器中
+4. @Pointcut 定义要拦截的注解
