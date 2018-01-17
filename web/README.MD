@@ -42,4 +42,38 @@
 
 ##拦截器
 ###创建自定义拦截器
-                      
+在spring boot中创建自定义拦截器很简单只需要3步：
+1. 创建我们自己的拦截器类并实现 HandlerInterceptor 接口或者继承 HandlerInterceptorAdapter 类。
+2. 创建一个Java类继承WebMvcConfigurerAdapter，并重写 addInterceptors 方法。
+3. 实例化我们自定义的拦截器，然后将对像手动添加到拦截器链中（在addInterceptors方法中添加）。
+
+创建自己的拦截器
+>``public class MyInterceptor implements HandlerInterceptor {
+      @Override
+      public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+              throws Exception {
+          System.out.println(">>>>>在请求处理之前进行调用（Controller方法调用之前）");
+          return true;
+      }
+      @Override
+      public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+              ModelAndView modelAndView) throws Exception {
+         System.out.println(">>>>>>>>>请求处理之后进行调用，但是在视图被渲染之前（Controller方法调用之后）");
+      }
+      @Override
+      public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+              throws Exception {
+          System.out.println(">>>>>>>>>在整个请求结束之后被调用，也就是在DispatcherServlet 渲染了对应的视图之后执行（主要是用于进行资源清理工作）");
+      }
+  }``
+  
+实例化拦截器并添加到拦截器链中
+``@Configuration
+  public class MyWebAppConfigurer extends WebMvcConfigurerAdapter { @Override 
+    public void addInterceptors(InterceptorRegistry registry) { 
+      // 多个拦截器组成一个拦截器链 
+      registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**"); 
+      registry.addInterceptor(new MyInterceptor2()).addPathPatterns("/rest/**");
+      super.addInterceptors(registry); 
+    }
+  }``
